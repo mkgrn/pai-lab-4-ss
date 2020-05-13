@@ -39,18 +39,24 @@
       switch ($action):
         case 'showLoginForm':
           //Wyświetlenie formularza logowania
+          include('loginForm.php');
           break;
         case 'showRegistrationForm':
+          $portal->showRegistrationForm();
           //Wyświetlenie formularza wyszukiwania
           break;
         case 'showSearchForm':
           //Wyświetlenie formularza rejestracyjnego
+          $portal->showSearchForm();
           break;
         case 'searchBook':
           //Wyszukanie książki
+          $portal->showSearchForm();
+          $portal->showSearchResults();
           break;
         case 'showBookDetails':
           //Wyświetlenie szczegółowych informacji o książce
+          $portal->showBookDetails();
           break;
         case 'showBasket':
           //Wyświetlenie zawartości koszyka
@@ -62,6 +68,7 @@
         default:
           include 'templates/innerContentDiv.php';
       endswitch;
+
       ?>
     </div>
   </div>
