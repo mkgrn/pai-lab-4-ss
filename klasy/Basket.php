@@ -30,8 +30,21 @@ function add() {
     }
     return ACTION_OK;
     }
-function show($title, $allowModify = true) {
-}
+    function show($title, $allowModify = true) {           
+        if (count($_SESSION['basket']) == 0) {
+            $komunikat = 'Koszyk jest pusty';
+        } else {
+            $ids = implode(',', array_keys($_SESSION['basket']));
+            $query = 'SELECT Id, Tytuł, Cena FROM Ksiazki WHERE Id IN(' . $ids . ') ORDER BY Tytuł';
+            if ($books = $this->dbo->query($query)) {
+                $basket = $_SESSION['basket'];
+                $komunikat = false;
+            }else{
+                $komunikat = 'Błąd serwera. Zawartość koszyka nie dostępna';
+            }
+            }
+        include 'templates/basket.php';
+    }
 function modify() {
 }
 function saveOrder(&$orderId) {
