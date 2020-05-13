@@ -45,8 +45,14 @@ function add() {
             }
         include 'templates/basket.php';
     }
-function modify() {
-}
+    function modify() {              
+        foreach ($_SESSION['basket'] as $id => $item) {
+            if (!isset($_POST[$id])) { unset($_SESSION['basket'][$id]); }
+            else if ($_POST[$id] < 1) {unset($_SESSION['basket'][$id]); }
+            else { $item->ile = (int) $_POST[$id]; }
+        
+        }
+    }
 function saveOrder(&$orderId) {
 }
 } ?>
