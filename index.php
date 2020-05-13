@@ -81,12 +81,25 @@ try {
       endswitch;
       header('Location:index.php?action=showRegistrationForm');
       break;
-    case 'addToBasket':
-      //Dodawanie książki do koszyka
+      case 'addToBasket':
+        switch  ($portal->addToBasket()) {
+          case INVALID_ID;
+          case FORM_DATA_MISSING;
+          $portal->setMessage('Błędny identyfikator książki');
+        break;
+        case ACTION_OK;
+        $portal->setMessage('Książka zostałą dodana do koszyka');
       break;
-    case 'modifyBasket':
-      //Modyfikacja zawartości koszyka
-      break;
+      default;
+      $portal->setMessage('Błąd serwera');
+    }
+    header('Location:index.php>action=showBasket');
+    break;
+    case 'modifyBasket';
+    $portal->setMessage('Zawartość koszyka została uaktualniona');
+    $portal->modifyBasket();
+    header('Location:index.php?action=showBasket');
+    break;
     case 'saveOrder':
       //Zapis zamówienia w bazie danych
       break;
